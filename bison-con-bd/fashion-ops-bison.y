@@ -293,10 +293,20 @@ reporte:
     | REPORTAR VENTAS DIARIO FILTRAR condicion 
         { 
             printf("Reporte de ventas DIARIO con filtro\n");
+            char *sql = "SELECT fecha, SUM(total) as total_ventas, SUM(cantidad) as items_vendidos "
+                       "FROM ventas "
+                       "WHERE fecha = DATE('now') "
+                       "GROUP BY fecha;";
+            ejecutar_sql(sql);
         }
     | REPORTAR VENTAS MENSUAL FILTRAR condicion 
         { 
             printf("Reporte de ventas MENSUAL con filtro\n");
+            char *sql = "SELECT strftime('%Y-%m', fecha) as mes, SUM(total) as total_ventas, SUM(cantidad) as items_vendidos "
+                       "FROM ventas "
+                       "WHERE fecha >= DATE('now', 'start of month') "
+                       "GROUP BY mes;";
+            ejecutar_sql(sql);
         }
     ;
 
@@ -400,7 +410,14 @@ aplicar_descuento:
             if ($3 <= 0 || $3 > 100) {
                 yyerror("Error semantico: Porcentaje en APLICAR_DESCUENTO debe estar entre 0 y 100");
             }
-            printf("Aplicar %.0f%% descuento condicional a %s\n", $3, $2);
+            
+            char sql[512];
+            snprintf(sql, sizeof(sql), 
+                    "INSERT INTO descuentos (sku, porcentaje) VALUES ('%s', %.2f);", 
+                    $2, $3);
+            ejecutar_sql(sql);
+            
+            printf("Aplicado %.0f%% descuento condicional a '%s'\n", $3, $2);
             free($2);
         }
     ;
