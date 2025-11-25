@@ -2,83 +2,78 @@
 #include "fashion-ops-bison.tab.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 %}
+
+%option yylineno
+%option noyywrap
 
 %%
 
-[ \t\r]+        ;
-\n              { yylineno++; }
-"//".*          ;
+[ \t\r]+                  ;  /* ignorar espacios y tabuladores */
+\n                        { yylineno++; }
+"//".*                    ;  /* comentarios de una línea */
 
-"REPORT"        { return REPORT; }
-"STOCK"         { return STOCK; }
-"REORDER"       { return REORDER; }
-"SLOW"          { return SLOW; }
-"DISCOUNT"      { return DISCOUNT; }
-"IF"            { return IF; }
-"THEN"          { return THEN; }
-"ELSE"          { return ELSE; }
-"FOR"           { return FOR; }
-"IN"            { return IN; }
-"VAR"           { return VAR; }
-"CONST"         { return CONST; }
-"ARRAY"         { return ARRAY; }
-"END"           { return END; }
-"SALES"         { return SALES; } 
-"DAILY"         { return DAILY; } 
-"MONTHLY"       { return MONTHLY; }
-"FILTER"        { return FILTER; }
-"IS"            { return IS; }
-"DAYS"          { return DAYS; }
-"%"             { return PERCENT; }
-"DO"            { return DO; }
+"REPORTAR"                { return REPORTAR; }
+"VENTAS"                  { return VENTAS; }
+"DIARIO"                  { return DIARIO; }
+"MENSUAL"                 { return MENSUAL; }
+"FILTRAR"                 { return FILTRAR; }
 
-"=="            { return EQ; }
-"!="            { return NEQ; }
-">="            { return GEQ; }
-"<="            { return LEQ; }
-">"             { return GT; }
-"<"             { return LT; }
+"VER_STOCK"               { return VER_STOCK; }
+"REPONER"                 { return REPONER; }
+"IDENTIFICAR_LENTOS"      { return IDENTIFICAR_LENTOS; }
+"APLICAR_DESCUENTO"       { return APLICAR_DESCUENTO; }
 
-"+"             { return PLUS; }
-"-"             { return MINUS; }
-"*"             { return MULT; }
-"/"             { return DIV; }
+"SI"                      { return SI; }
+"ENTONCES"                { return ENTONCES; }
+"SINO"                    { return SINO; }
+"FIN"                     { return FIN; }
 
-"AND"           { return AND; }
-"OR"            { return OR; }
-"NOT"           { return NOT; }
+"PARA"                    { return PARA; }
+"EN"                      { return EN; }
+"HAZ"                     { return HAZ; }
 
-"="             { return ASSIGN; }
+"VARIABLE"                { return VARIABLE; }
+"CONSTANTE"               { return CONSTANTE; }
+"ARREGLO"                 { return ARREGLO; }
 
-";"             { return SEMICOLON; }
-"("             { return LPAREN; }
-")"             { return RPAREN; }
-"["             { return LBRACKET; }
-"]"             { return RBRACKET; }
-"{"             { return LBRACE; }
-"}"             { return RBRACE; }
-","             { return COMMA; }
+"ES"                      { return ES; }
+"DIAS"                    { return DIAS; }
 
-[0-9]+(\.[0-9]+)? {
-    yylval.fval = atof(yytext);
-    return NUMBER;
-}
+"%"                       { return PORCENTAJE; }
 
-\"[^"]*\"        {
-    yylval.sval = strdup(yytext);
-    return STRING;
-}
+"Y"                       { return Y; }
+"O"                       { return O; }
+"NO"                      { return NO; }
 
-[a-zA-Z_][a-zA-Z0-9_]* {
-    yylval.sval = strdup(yytext);
-    return ID;
-}
+"=="                      { return IGUAL; }
+"!="                      { return DIFERENTE; }
+">="                      { return MAYOR_IGUAL; }
+"<="                      { return MENOR_IGUAL; }
+">"                       { return MAYOR; }
+"<"                       { return MENOR; }
 
-.               {
-    fprintf(stderr, "Error léxico en la línea %d: Carácter inesperado '%s'\n", yylineno, yytext);
-    exit(1);
-}
+"+"                       { return MAS; }
+"-"                       { return MENOS; }
+"*"                       { return POR; }
+"/"                       { return DIV; }
+
+"="                       { return ASIGNAR; }
+";"                       { return PUNTO_COMA; }
+","                       { return COMA; }
+"("                       { return PARENTESIS_IZQ; }
+")"                       { return PARENTESIS_DER; }
+"["                       { return CORCHETE_IZQ; }
+"]"                       { return CORCHETE_DER; }
+
+[0-9]+(\.[0-9]+)?         { yylval.valor_real = atof(yytext); return NUMERO; }
+
+\"[^"]*\"                 { yylval.cadena = strdup(yytext); return CADENA; }
+
+[a-zA-Z_][a-zA-Z0-9_]*    { yylval.cadena = strdup(yytext); return IDENTIFICADOR; }
+
+.                         { fprintf(stderr, "Error léxico en línea %d: carácter inesperado '%s'\n", yylineno, yytext); exit(1); }
 
 %%
 
