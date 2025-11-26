@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sqlite3.h>
+#include "types.h"
 
 extern int yylex();
 extern int yylineno;
@@ -85,16 +86,6 @@ void init_database() {
     
     ejecutar_sql(insert_productos);
 }
-
-// Enumeración para tipos
-typedef enum { T_UNKNOWN, T_NUMBER, T_STRING, T_ARRAY } Type;
-
-// Estructura para expresiones (para verificación de tipos)
-typedef struct {
-    Type type;
-    double num_val;
-    char *str_val;
-} Expr;
 
 // Estructura para símbolos
 typedef struct Symbol {
