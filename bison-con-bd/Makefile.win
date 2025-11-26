@@ -1,0 +1,43 @@
+# Makefile para FashionOpsDSL con SQLite3 - Windows
+# Usar con WinFlexBison3 y MinGW
+
+CC = gcc
+CFLAGS = -Wall -I.
+SQLITE_FLAGS = -DSQLITE_THREADSAFE=0 -DSQLITE_OMIT_LOAD_EXTENSION
+BISON = win_bison
+FLEX = win_flex
+
+TARGET = fashion-ops.exe
+BISON_SRC = fashion-ops-bison.y
+FLEX_SRC = fashion-ops-dsl.l
+BISON_OUT = fashion-ops-bison.tab.c fashion-ops-bison.tab.h
+FLEX_OUT = lex.yy.c
+SQLITE_SRC = sqlite3.c
+
+all: $(TARGET)
+
+$(TARGET): $(BISON_OUT) $(FLEX_OUT) $(SQLITE_SRC)
+	$(CC) $(CFLAGS) -o $(TARGET) lex.yy.c fashion-ops-bison.tab.c $(SQLITE_SRC) $(SQLITE_FLAGS)
+
+$(BISON_OUT): $(BISON_SRC)
+	$(BISON) -d $(BISON_SRC)
+
+$(FLEX_OUT): $(FLEX_SRC) $(BISON_OUT)
+	$(FLEX) $(FLEX_SRC)
+
+$(SQLITE_SRC):
+	@echo Descargando SQLite amalgamation...
+	powershell -Command "Invoke-WebRequest -Uri 'https://www.sqlite.org/2024/sqlite-amalgamation-3470200.zip' -OutFile 'sqlite-amalgamation.zip'"
+	powershell -Command "Expand-Archive -Path sqlite-amalgamation.zip -DestinationPath . -Force"
+	powershell -Command "Copy-Item sqlite-amalgamation-3470200\\*.h ."
+	powershell -Command "Copy-Item sqlite-amalgamation-3470200\\*.c ."
+	@echo SQLite descargado y extraido correctamente
+
+clean:
+	del /Q $(TARGET) fashion-ops-bison.tab.c fashion-ops-bison.tab.h lex.yy.c fashion_ops.db sqlite3.c sqlite3.h sqlite3ext.h sqlite-amalgamation.zip 2>nul
+	rmdir /S /Q sqlite-amalgamation-3470200 2>nul
+
+test: $(TARGET)
+	$(TARGET) test.txt
+
+.PHONY: all clean test

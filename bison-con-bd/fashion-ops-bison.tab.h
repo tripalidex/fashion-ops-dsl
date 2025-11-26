@@ -1,14 +1,14 @@
-/* A Bison parser, made by GNU Bison 2.3.  */
+/* A Bison parser, made by GNU Bison 3.7.4.  */
 
-/* Skeleton interface for Bison's Yacc-like parsers in C
+/* Bison interface for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989, 1990, 2000, 2001, 2002, 2003, 2004, 2005, 2006
-   Free Software Foundation, Inc.
+   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2020 Free Software Foundation,
+   Inc.
 
-   This program is free software; you can redistribute it and/or modify
+   This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2, or (at your option)
-   any later version.
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
 
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -16,9 +16,7 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.  */
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
 /* As a special exception, you may create a larger work that contains
    part or all of the Bison parser skeleton and distribute that work
@@ -33,125 +31,100 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-/* Tokens.  */
+/* DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
+   especially those whose name start with YY_ or yy_.  They are
+   private implementation details that can be changed or removed.  */
+
+#ifndef YY_YY_FASHION_OPS_BISON_TAB_H_INCLUDED
+# define YY_YY_FASHION_OPS_BISON_TAB_H_INCLUDED
+/* Debug traces.  */
+#ifndef YYDEBUG
+# define YYDEBUG 0
+#endif
+#if YYDEBUG
+extern int yydebug;
+#endif
+
+/* Token kinds.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
-   /* Put the tokens into the symbol table, so that GDB and other debuggers
-      know about them.  */
-   enum yytokentype {
-     NUMERO = 258,
-     CADENA = 259,
-     IDENTIFICADOR = 260,
-     REPORTAR = 261,
-     VENTAS = 262,
-     DIARIO = 263,
-     MENSUAL = 264,
-     FILTRAR = 265,
-     VER_STOCK = 266,
-     REPONER = 267,
-     IDENTIFICAR_LENTOS = 268,
-     APLICAR_DESCUENTO = 269,
-     SI = 270,
-     ENTONCES = 271,
-     SINO = 272,
-     FIN = 273,
-     PARA = 274,
-     EN = 275,
-     HAZ = 276,
-     VARIABLE = 277,
-     CONSTANTE = 278,
-     ARREGLO = 279,
-     ES = 280,
-     DIAS = 281,
-     PORCENTAJE = 282,
-     Y = 283,
-     O = 284,
-     NO = 285,
-     IGUAL = 286,
-     DIFERENTE = 287,
-     MAYOR_IGUAL = 288,
-     MENOR_IGUAL = 289,
-     MAYOR = 290,
-     MENOR = 291,
-     MAS = 292,
-     MENOS = 293,
-     POR = 294,
-     DIV = 295,
-     ASIGNAR = 296,
-     PUNTO_COMA = 297,
-     COMA = 298,
-     PARENTESIS_IZQ = 299,
-     PARENTESIS_DER = 300,
-     CORCHETE_IZQ = 301,
-     CORCHETE_DER = 302
-   };
+  enum yytokentype
+  {
+    YYEMPTY = -2,
+    YYEOF = 0,                     /* "end of file"  */
+    YYerror = 256,                 /* error  */
+    YYUNDEF = 257,                 /* "invalid token"  */
+    NUMERO = 258,                  /* NUMERO  */
+    CADENA = 259,                  /* CADENA  */
+    IDENTIFICADOR = 260,           /* IDENTIFICADOR  */
+    REPORTAR = 261,                /* REPORTAR  */
+    VENTAS = 262,                  /* VENTAS  */
+    DIARIO = 263,                  /* DIARIO  */
+    MENSUAL = 264,                 /* MENSUAL  */
+    FILTRAR = 265,                 /* FILTRAR  */
+    VER_STOCK = 266,               /* VER_STOCK  */
+    REPONER = 267,                 /* REPONER  */
+    IDENTIFICAR_LENTOS = 268,      /* IDENTIFICAR_LENTOS  */
+    APLICAR_DESCUENTO = 269,       /* APLICAR_DESCUENTO  */
+    SI = 270,                      /* SI  */
+    ENTONCES = 271,                /* ENTONCES  */
+    SINO = 272,                    /* SINO  */
+    FIN = 273,                     /* FIN  */
+    PARA = 274,                    /* PARA  */
+    EN = 275,                      /* EN  */
+    HAZ = 276,                     /* HAZ  */
+    VARIABLE = 277,                /* VARIABLE  */
+    CONSTANTE = 278,               /* CONSTANTE  */
+    ARREGLO = 279,                 /* ARREGLO  */
+    ES = 280,                      /* ES  */
+    DIAS = 281,                    /* DIAS  */
+    PORCENTAJE = 282,              /* PORCENTAJE  */
+    Y = 283,                       /* Y  */
+    O = 284,                       /* O  */
+    NO = 285,                      /* NO  */
+    IGUAL = 286,                   /* IGUAL  */
+    DIFERENTE = 287,               /* DIFERENTE  */
+    MAYOR_IGUAL = 288,             /* MAYOR_IGUAL  */
+    MENOR_IGUAL = 289,             /* MENOR_IGUAL  */
+    MAYOR = 290,                   /* MAYOR  */
+    MENOR = 291,                   /* MENOR  */
+    MAS = 292,                     /* MAS  */
+    MENOS = 293,                   /* MENOS  */
+    POR = 294,                     /* POR  */
+    DIV = 295,                     /* DIV  */
+    ASIGNAR = 296,                 /* ASIGNAR  */
+    PUNTO_COMA = 297,              /* PUNTO_COMA  */
+    COMA = 298,                    /* COMA  */
+    PARENTESIS_IZQ = 299,          /* PARENTESIS_IZQ  */
+    PARENTESIS_DER = 300,          /* PARENTESIS_DER  */
+    CORCHETE_IZQ = 301,            /* CORCHETE_IZQ  */
+    CORCHETE_DER = 302             /* CORCHETE_DER  */
+  };
+  typedef enum yytokentype yytoken_kind_t;
 #endif
-/* Tokens.  */
-#define NUMERO 258
-#define CADENA 259
-#define IDENTIFICADOR 260
-#define REPORTAR 261
-#define VENTAS 262
-#define DIARIO 263
-#define MENSUAL 264
-#define FILTRAR 265
-#define VER_STOCK 266
-#define REPONER 267
-#define IDENTIFICAR_LENTOS 268
-#define APLICAR_DESCUENTO 269
-#define SI 270
-#define ENTONCES 271
-#define SINO 272
-#define FIN 273
-#define PARA 274
-#define EN 275
-#define HAZ 276
-#define VARIABLE 277
-#define CONSTANTE 278
-#define ARREGLO 279
-#define ES 280
-#define DIAS 281
-#define PORCENTAJE 282
-#define Y 283
-#define O 284
-#define NO 285
-#define IGUAL 286
-#define DIFERENTE 287
-#define MAYOR_IGUAL 288
-#define MENOR_IGUAL 289
-#define MAYOR 290
-#define MENOR 291
-#define MAS 292
-#define MENOS 293
-#define POR 294
-#define DIV 295
-#define ASIGNAR 296
-#define PUNTO_COMA 297
-#define COMA 298
-#define PARENTESIS_IZQ 299
-#define PARENTESIS_DER 300
-#define CORCHETE_IZQ 301
-#define CORCHETE_DER 302
 
-
-
-
+/* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef union YYSTYPE
-#line 175 "fashion-ops-bison.y"
+union YYSTYPE
 {
+#line 175 "fashion-ops-bison.y"
+
     double valor_real;
     char *cadena;
     Expr expr;
     Type type;  // Para tipos de lista en arreglos
-}
-/* Line 1529 of yacc.c.  */
-#line 150 "fashion-ops-bison.tab.h"
-	YYSTYPE;
-# define yystype YYSTYPE /* obsolescent; will be withdrawn */
-# define YYSTYPE_IS_DECLARED 1
+
+#line 118 "fashion-ops-bison.tab.h"
+
+};
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
+# define YYSTYPE_IS_DECLARED 1
 #endif
+
 
 extern YYSTYPE yylval;
 
+int yyparse (void);
+
+#endif /* !YY_YY_FASHION_OPS_BISON_TAB_H_INCLUDED  */

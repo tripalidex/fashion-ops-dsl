@@ -1,21 +1,18 @@
-// Archivo de prueba para FashionOpsDSL con Base de Datos
-
-// Probar REPONER - Genera UPDATE
+// ===== REPONER: Incrementar stock de productos =====
 REPONER camisa_M 50;
-
-// Probar APLICAR_DESCUENTO - Genera INSERT
-APLICAR_DESCUENTO camisa_M 25%;
-
-// Probar VER_STOCK - Genera SELECT
-VER_STOCK camisa_M ES cantidad;
-
-// Probar IDENTIFICAR_LENTOS - Genera SELECT con filtro
-IDENTIFICAR_LENTOS DIAS MAYOR 10;
-
-// Probar REPORTAR VENTAS
-REPORTAR VENTAS DIARIO;
-
-// Operaciones adicionales
 REPONER pantalon_azul 30;
-APLICAR_DESCUENTO zapato_42 15%;
-IDENTIFICAR_LENTOS DIAS MAYOR 20 VENTAS MENOR 5;
+REPONER zapato_42 20;
+
+// ===== APLICAR_DESCUENTO: Registrar descuentos por SKU =====
+APLICAR_DESCUENTO camisa_M 25%;
+APLICAR_DESCUENTO pantalon_azul 15%;
+APLICAR_DESCUENTO zapato_42 10%;
+
+// ===== VER_STOCK: Consultar inventario y asignar a variables =====
+VER_STOCK camisa_M ES stock1;
+VER_STOCK pantalon_azul ES stock2;
+VER_STOCK zapato_42 ES stock3;
+
+// ===== REPORTAR VENTAS: Generar reportes de ventas =====
+REPORTAR VENTAS DIARIO;
+REPORTAR VENTAS MENSUAL;
